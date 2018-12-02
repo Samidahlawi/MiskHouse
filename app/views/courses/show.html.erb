@@ -1,12 +1,39 @@
-<h1 class="margin_top" style="text-align:center">Course<h1>
-<h3 >Course: <%=@course.name%></h3>
-<img src="<%= @course.img %>">
+<div class="d-flex align-items-center flex-column "  style="background-image: url('<%= @course.img %>'); background-repeat: no-repeat;background-size: cover; width: 100%;height: 500px;">
+  <section class="text-center">
+    <br>
+    <h1 class="text-white "> <%=@course.name %></h1>
+<!--    <img src="<%# @program.icon %>">-->
+    <p class="lead  text-white"> <%=@course.short_description%> </p>
+      <p class="lead  text-white"> <%=@course.long_description%> </p>
+      <p class="lead  text-white"> <%=@course.duration%> </p>
+    <div class="mt-auto p-2">
+      <div class="row text-white">
+        <div class="col">* Students 220</div>
+        <div class="col">* Projects 500</div>
+        <div class="w-100"></div>
+        <div class="col">* 12 Weeks</div>
+        <div class="col">* 7 Course</div>
+      </div>
+    </div>
+  </section>
+</div>
 
-<p>Brief Description: <%=@course.short_description%></p>
-<p>Full Description: <%=@course.long_description%></p>
-<p>Duration: <%=@course.duration%></p>
-<%= link_to 'Edit this Course', edit_course_path %>
-<%= link_to "Delete this Course", course_path(@course), method: :delete %>
+<!--<h1 class="margin_top" style="text-align:center">Course<h1>-->
+<!--<h3 >Course: <%#=@course.name%></h3>-->
+<!--<img src="<%#= @course.img %>">-->
+
+<!--<p>Brief Description: <%#=@course.short_description%></p>-->
+<!--<p>Full Description: <%#=@course.long_description%></p>-->
+<!--<p>Duration: <%#=@course.duration%></p>-->
+<% if user_signed_in? %>
+ <% if current_user.admin %>
+  <%= link_to 'Edit this Course', edit_course_path %>
+  <%= link_to "Delete this Course", course_path(@course), method: :delete %>
+    <% end %>
+<% else %>
+
+<% end %>
+
 
 <hr/>
 <ul class="nav nav-tabs " id="myTab" role="tablist">
@@ -31,7 +58,15 @@
 <div class="col-md-12">
 <!-- Your first column here -->
 <!-- START studnets -->
+  <% if user_signed_in? %>
+	 <% if current_user.admin %>
+
     <%= link_to "Add New student", new_student_path%>
+    <% end %>
+  <% else %>
+
+  <% end %>
+
 <h1>Students</h1>
     
 <div class="container">
@@ -126,15 +161,33 @@
 <!-- Your second column here -->
 <div class="col-md-12">
 <!-- START projects -->
-<div style="width:50%"> 
+<div style="width:100%"> 
 <%#= link_to "Add New programs", new_student_path%>
 <h1 style="text-align:center">Projects</h1>
-<ul>
+
+<div class="container">
+<div class="row">
+<div class="card-deck">
 <% @course.projects.each do |project|%>
-<li><%= link_to project.name, project_path(project)%></li>
-<%end%>
-</ul>
+<div class="card-deck col-lg-3 col-md-4 col-sm-6 margin_button ">
+<div class="card" style="width: 18rem;">
+<div class="card-body ">
+<h5 class="card-title"><%= project.name%></h5>
+<p class="card-text"><%= project.description%></p>
+<h6 class="card-subtitle mb-2 text-muted">Language:<%= project.language%></h6>
+<a href="<%= student_path(project.students.first.id)%>"><h6 class="card-text">By <%= project.students.last.f_name + " " + project.students.last.l_name%></h6></a>
 </div>
+<div class="card-footer">
+<a href="<%= project_path(project)%>" class="btn btn-primary">Show</a>
+</div>
+</div>  
+</div>    
+<%end%>
+   </div>
+    </div>
+        </div>
+</div>
+    
 <!-- END projects -->
 </div>
     </div>
