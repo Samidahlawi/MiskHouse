@@ -1,2 +1,22 @@
-<h1>Students#show</h1>
-<p>Find me in app/views/students/show.html.erb</p>
+<h1 class="margin_top"></h1>
+<h2><%= @student.f_name %>  <%=@student.l_name %></h2>
+<p>gender: <%= @student.gender  %></p>
+<p>email: <%= @student.email  %></p>
+<p>mobile: <%= @student.mobile  %></p>
+<p>linkedin: <%= @student.linkedin  %></p>
+<p>github_user: <%= @student.gender  %></p>
+<p>twitter: <%= @student.twitter  %></p>
+<p><img src="<%= @student.img  %>" alt=""> </p>
+<p>bio: <%= @student.bio %></p>
+<%= link_to "Edit", edit_student_path(@student)%>
+<hr>
+<%= link_to "Add New Project", new_project_path %>
+<h1 style="text-align:center"> All Projects</h1>
+<ul>
+
+<% @student.projects.each do |project|%>
+<li><%= link_to project.name, project_path(project) %></li>
+    
+<% end%>
+</ul>
+

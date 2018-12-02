@@ -5,6 +5,7 @@ class CoursesController < ApplicationController
 
   def show
     @course = Course.find(params[:id])
+    session[:program_id] = @course.id
   end
 
   def edit
@@ -14,7 +15,7 @@ class CoursesController < ApplicationController
   def update
     course = Course.find_by(id: params[:id])
     course.update(course_params)
-    redirect_to courses_path
+    redirect_to course_path(course)
   end
 
   def new
@@ -22,8 +23,10 @@ class CoursesController < ApplicationController
   end
 
   def create
-    course = Course.create(course_params)
-    redirect_to courses_path
+    program_id = session[:program_id]
+    program = Program.find_by(id: program_id)
+    course = program.courses.create(course_params)
+    redirect_to program_path(program)
   end
 
   def destroy
@@ -35,6 +38,6 @@ class CoursesController < ApplicationController
   private
 
   def course_params
-    params.require(:course).permit(:name, :img, :short_description, :long_description)
+    params.require(:course).permit(:name, :img, :short_description, :long_description, :duration)
   end
 end

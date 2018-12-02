@@ -1,16 +1,30 @@
-<h1>Program Show</h1>
+<h1 style="text-align:center">Program Show</h1>
 <label>Name:</label>
 <%= @program.name %>
 <br/>
 <label>Image: </label>
 <img src="<%= @program.img %>">
-
 <br/>
 <label>Short Description:</label>
 <%= @program.short_description %>
 <br/>
 <label>Long Description: </label>
 <%= @program.long_description %>
-<br/><br/>
+<br/>
+<br/>
 <%= link_to 'Edit', edit_program_path %>
 <%= link_to 'Delete', program_path , method: :delete %>
+
+
+<hr/>
+<nav>
+<%= link_to 'Add New Course', new_course_path %>
+</nav>
+<h1 style="text-align:center">Courses</h1>
+<ul>
+<% @program.courses.each do |c| %>
+  <li>
+    <%= link_to c.name, course_path(c) %>
+  </li>
+<% end %>
+</ul>
