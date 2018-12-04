@@ -1,4 +1,4 @@
-<form class="container">
+<div class="container">
 <%= form_for @program do |f| %>
 <div class="form-group">
 <label for="exampleFormControlInput1">Name</label>
@@ -23,12 +23,12 @@
 </div>
 <%= f.submit "Create Program", class:"btn btn-secondary btn-lg"%>
 <% end %>
-</form>
+</div>
 
 
 
 <%# 
-<%= form_for @program do |f| %>
+<%=# form_for @program do |f| %>
   <%# Name: <%= f.text_field :name %>
   <%# image: <%= f.text_field :img %> 
   <%# Short description: <%= f.text_field :short_description %>

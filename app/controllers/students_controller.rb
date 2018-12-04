@@ -54,6 +54,9 @@ class StudentsController < ApplicationController
 
   def update
     student = Student.find_by(id: params[:id])
+    cloudinary = Cloudinary::Uploader.upload(params["student"]["img"])
+    student.img = cloudinary["url"]
+    student.save
     student.update(student_params)
     redirect_to student_path(student)
   end
