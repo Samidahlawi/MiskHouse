@@ -34,11 +34,11 @@ ActiveRecord::Schema.define(version: 2018_12_03_085849) do
   create_table "programs", force: :cascade do |t|
     t.string "name"
     t.string "img"
-    t.string "icon"
     t.string "short_description"
     t.text "long_description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "icon"
   end
 
   create_table "projects", force: :cascade do |t|
@@ -94,5 +94,4 @@ ActiveRecord::Schema.define(version: 2018_12_03_085849) do
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
-
 end

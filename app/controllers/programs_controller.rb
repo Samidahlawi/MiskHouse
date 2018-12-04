@@ -1,5 +1,6 @@
 class ProgramsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+
   def index
     @programs = Program.all
   end
@@ -25,6 +26,11 @@ class ProgramsController < ApplicationController
 
   def update
     program = Program.find_by(id: params[:id])
+    cloudinary = Cloudinary::Uploader.upload(params["program"]["img"])
+
+    # params["program"]["img"]
+    program.icon = cloudinary["url"]
+    program.save
     program.update(program_params)
     redirect_to program_path(program)
   end
